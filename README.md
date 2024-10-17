@@ -1,4 +1,6 @@
 # Ex-2-GENERATION OF LEXICAL TOKENS LEX FLEX TOOL
+## NAME:VASANTH.S
+## ROLL.NO: 212222110052
 # AIM
 ## To write a lex program to implement lexical analyzer to recognize a few patterns.
 # ALGORITHM
@@ -32,6 +34,52 @@
 7.	Compile that file with C compiler and verify the output.
 
 # INPUT
+```
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+int isKeyword(char buffer[]) {
+    char keywords[5][10] = {"if", "else", "while", "for", "int"};
+    for (int i = 0; i < 5; ++i) {
+        if (strcmp(buffer, keywords[i]) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int main() {
+    char ch, buffer[15];
+    char operators[] = "+-*/=";
+    int i = 0;
+
+    printf("Enter your input: ");
+    
+    while ((ch = getchar()) != EOF) {
+        if (strchr(operators, ch)) {
+            printf("Operator: %c\n", ch);
+        } else if (isalnum(ch)) {
+            buffer[i++] = ch;
+        } else if ((ch == ' ' || ch == '\n' || ch == '\t') && i != 0) {
+            buffer[i] = '\0';
+
+            if (isKeyword(buffer)) {
+                printf("Keyword: %s\n", buffer);
+            } else if (isdigit(buffer[0])) {
+                printf("Number: %s\n", buffer);
+            } else {
+                printf("Identifier: %s\n", buffer);
+            }
+            i = 0;
+        }
+    }
+
+    return 0;
+}
+```
 # OUTPUT
+![374485304-7764e8d8-d0fb-4f84-bede-08f44ad68a5f](https://github.com/user-attachments/assets/dcaee4bb-6141-43c3-9870-0f3c361fa465)
+
 # RESULT
 ## The lexical analyzer is implemented using lex and the output is verified.
